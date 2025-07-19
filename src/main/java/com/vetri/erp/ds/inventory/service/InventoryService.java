@@ -16,22 +16,26 @@ public class InventoryService {
 	@Autowired
 	ProductionSectionDao productionSectionDao;
 	
-	public List<ProdSectionDto> getAllProductionSection() {
-		return DtoMapper.toDtoList(productionSectionDao.getAll(1));
+	public List<ProdSectionDto> getAllProductionSection(Integer orgId) {
+		return DtoMapper.toDtoList(productionSectionDao.getAll(orgId));
 	}
 
-	public ProdSectionDto getbyIdProductionSection(Integer id) {
-		return DtoMapper.toDto(productionSectionDao.getById(id, 1));
+	public ProdSectionDto getbyIdProductionSection(Integer orgId, Integer id) {
+		return DtoMapper.toDto(productionSectionDao.getById(orgId, id));
 	}
 
-	public ProdSectionDto updateProductionSection(ProdSectionDto dto) {
-		ProductionSectionEntity entity = productionSectionDao.getById(dto.getId(), 1);
+	public ProdSectionDto updateProductionSection(Integer orgId, ProdSectionDto dto) {
+		ProductionSectionEntity entity = productionSectionDao.getById(orgId, dto.getId());
 		ProductionSectionEntity updatedEntity =  DtoMapper.updateEntity(dto, entity);
 		return DtoMapper.toDto(productionSectionDao.update(updatedEntity));
 	}
 
 	public ProdSectionDto saveProductionSection(ProdSectionDto dto) {
 		return  DtoMapper.toDto(productionSectionDao.save(DtoMapper.toEntity(dto)));
+	}
+
+	public void deleteProductionSection(Integer orgId, Integer id) {
+		productionSectionDao.delete(orgId, id);
 	}
 
 }

@@ -11,8 +11,8 @@
 	<groupId>com.vetri.page</groupId>
 	<artifactId>erp-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ERP-SERVICE</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Dairy-Service</name>
+	<description>Dairy service</description>
 	<url/>
 	<licenses>
 		<license/>

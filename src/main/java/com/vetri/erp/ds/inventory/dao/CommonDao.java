@@ -4,11 +4,13 @@ import java.util.List;
 
 public interface CommonDao<T, ID> {
 
-	T getById(ID id, Integer orgId);
+	T getById(Integer orgId, ID id);
 
 	List<T> getAll(Integer orgId);
 
 	T save(T entity);
 
 	T update(T entity);
+	
+	int delete(Integer orgId, ID id);
 }
