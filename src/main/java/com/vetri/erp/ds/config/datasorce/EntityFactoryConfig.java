@@ -29,7 +29,7 @@ public class EntityFactoryConfig {
     LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("routingDataSource") DataSource routingDataSource) {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(routingDataSource);
-        emf.setPackagesToScan("com.vetri.net.entity");
+        emf.setPackagesToScan("com.vetri.erp.ds.inventory.entity");
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         
         Map<String, Object> jpaProperties = new HashMap<>();

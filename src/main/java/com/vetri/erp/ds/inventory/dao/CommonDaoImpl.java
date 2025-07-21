@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vetri.erp.ds.inventory.entity.ProductionSectionEntity;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -15,6 +13,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 public class CommonDaoImpl<T, ID> implements CommonDao<T, ID> {
+	
 	@PersistenceContext
 	protected EntityManager entityManager;
 
@@ -66,15 +65,15 @@ public class CommonDaoImpl<T, ID> implements CommonDao<T, ID> {
 	}
 
 	@Override
+	@Transactional
 	public int delete(Integer orgId, ID id) {
 	    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-	    CriteriaDelete<ProductionSectionEntity> delete = cb.createCriteriaDelete(ProductionSectionEntity.class);
-	    Root<ProductionSectionEntity> root = delete.from(ProductionSectionEntity.class);
+	    CriteriaDelete<T> delete = cb.createCriteriaDelete(entityClass);
+	    Root<T> root = delete.from(entityClass);
 	    Predicate orgPredicate = cb.equal(root.get("company").get("id"), orgId);
 	    Predicate idPredicate = cb.equal(root.get("id"), id);
-	    delete.where(orgPredicate, idPredicate); // TODO soft delete or hard delete
-	    entityManager.createQuery(delete).executeUpdate();
-		return 0;
+	    delete.where(orgPredicate, idPredicate); 
+	    return entityManager.createQuery(delete).executeUpdate();// TODO soft delete or hard delete
 	}
 
 }

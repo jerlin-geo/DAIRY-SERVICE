@@ -4,9 +4,6 @@ import org.springframework.stereotype.Repository;
 
 import com.vetri.erp.ds.inventory.entity.ProductionSectionEntity;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 @Repository
 public class ProductionSectionDao extends CommonDaoImpl<ProductionSectionEntity, Integer> {
 
@@ -14,8 +11,4 @@ public class ProductionSectionDao extends CommonDaoImpl<ProductionSectionEntity,
 		super(ProductionSectionEntity.class);
 	}
 
-	@PersistenceContext
-	EntityManager em;
-	
-	
 }

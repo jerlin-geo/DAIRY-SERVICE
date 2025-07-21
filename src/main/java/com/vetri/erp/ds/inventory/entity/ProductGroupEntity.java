@@ -17,28 +17,33 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "production_Section")
+@Table(name = "product_Group")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class ProductionSectionEntity {
-
-	public ProductionSectionEntity(Integer id) {
-		super();
-		this.id = id;
-	}
-
-	@Id
-	@Column(name = "section_ID")
-	private Integer id;
+public class ProductGroupEntity {
 	
-	@Column(name = "section_Name")
-	private String sectionName;
+	@Id
+	@Column(name = "product_Group_ID")
+	private Integer id;
+
+	@Column(name = "product_Group_Name")
+	private String productGroupName;
+	
+	@Column(name = "sort_Order")
+	private Integer sortOrder;
+	
+	@ManyToOne
+	@JoinColumn(name = "production_Section")
+	private ProductionSectionEntity productionSection;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private CompanyEntity company;
+	
+	@Column(name = "use_For_MB")
+	private Boolean useForMb;
 	
 	@Column(name = "created_By", updatable = false)
 	private String createdBy;

@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetri.erp.ds.inventory.dto.ProdSectionDto;
-import com.vetri.erp.ds.inventory.service.InventoryService;
+import com.vetri.erp.ds.inventory.service.ProdSectionService;
 
 @RestController
-@RequestMapping("api/{orgId}/inventory")
+@RequestMapping("api/{orgId}/inventory/productSection/")
 
-public class InventoryController {
+public class ProductSectionController {
 
 	@Autowired
-	InventoryService inventoryService;
+	ProdSectionService prodSectionService;
 
-	@GetMapping("productSections")
+	@GetMapping
 	List<ProdSectionDto> getAllProductionSection(@PathVariable Integer orgId) {
-		return inventoryService.getAllProductionSection(orgId);
+		return prodSectionService.getAll(orgId);
 	}
 
-	@GetMapping("productSection/{id}")
+	@GetMapping("{id}")
 	ProdSectionDto getByIdProductionSection(@PathVariable Integer orgId, @PathVariable Integer id) {
-		return inventoryService.getbyIdProductionSection(orgId, id);
+		return prodSectionService.getbyId(orgId, id);
 	}
 
-	@PutMapping("productSection")
+	@PutMapping
 	ProdSectionDto updateProductionSection(@PathVariable Integer orgId, @RequestBody ProdSectionDto dto) {
-		return inventoryService.updateProductionSection(orgId, dto);
+		return prodSectionService.update(orgId, dto);
 	}
 
-	@PostMapping("productSection")
+	@PostMapping
 	ProdSectionDto saveProductionSection(@PathVariable Integer orgId, @RequestBody ProdSectionDto dto) {
-		return inventoryService.saveProductionSection(dto);
+		return prodSectionService.save(dto);
 	}
 
-	@DeleteMapping("productSection{id}")
+	@DeleteMapping("{id}")
 	void deleteProductionSection(@PathVariable Integer orgId, @PathVariable Integer id) {
-		inventoryService.deleteProductionSection(orgId, id);
+		prodSectionService.delete(orgId, id);
 	}
 }

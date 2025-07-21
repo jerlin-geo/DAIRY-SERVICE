@@ -11,30 +11,30 @@ import com.vetri.erp.ds.inventory.entity.ProductionSectionEntity;
 import com.vetri.erp.ds.inventory.mapper.DtoMapper;
 
 @Service
-public class InventoryService {
+public class ProdSectionService {
 
 	@Autowired
 	ProductionSectionDao productionSectionDao;
 	
-	public List<ProdSectionDto> getAllProductionSection(Integer orgId) {
-		return DtoMapper.toDtoList(productionSectionDao.getAll(orgId));
+	public List<ProdSectionDto> getAll(Integer orgId) {
+		return DtoMapper.toProdSecDtoList(productionSectionDao.getAll(orgId));
 	}
 
-	public ProdSectionDto getbyIdProductionSection(Integer orgId, Integer id) {
+	public ProdSectionDto getbyId(Integer orgId, Integer id) {
 		return DtoMapper.toDto(productionSectionDao.getById(orgId, id));
 	}
 
-	public ProdSectionDto updateProductionSection(Integer orgId, ProdSectionDto dto) {
+	public ProdSectionDto update(Integer orgId, ProdSectionDto dto) {
 		ProductionSectionEntity entity = productionSectionDao.getById(orgId, dto.getId());
 		ProductionSectionEntity updatedEntity =  DtoMapper.updateEntity(dto, entity);
 		return DtoMapper.toDto(productionSectionDao.update(updatedEntity));
 	}
 
-	public ProdSectionDto saveProductionSection(ProdSectionDto dto) {
+	public ProdSectionDto save(ProdSectionDto dto) {
 		return  DtoMapper.toDto(productionSectionDao.save(DtoMapper.toEntity(dto)));
 	}
 
-	public void deleteProductionSection(Integer orgId, Integer id) {
+	public void delete(Integer orgId, Integer id) {
 		productionSectionDao.delete(orgId, id);
 	}
 
