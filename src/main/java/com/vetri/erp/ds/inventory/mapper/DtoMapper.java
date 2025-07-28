@@ -2,11 +2,11 @@ package com.vetri.erp.ds.inventory.mapper;
 
 import java.util.List;
 
-import com.vetri.erp.ds.inventory.dto.ProdSectionDto;
-import com.vetri.erp.ds.inventory.dto.prodGroupDto;
 import com.vetri.erp.ds.inventory.entity.CompanyEntity;
 import com.vetri.erp.ds.inventory.entity.ProductGroupEntity;
 import com.vetri.erp.ds.inventory.entity.ProductionSectionEntity;
+import com.vetri.erp.ds.inventory.model.dto.ProdSectionDto;
+import com.vetri.erp.ds.inventory.model.dto.prodGroupDto;
 
 public class DtoMapper {
 
@@ -29,7 +29,7 @@ public class DtoMapper {
 		ProductionSectionEntity entity = new ProductionSectionEntity();
 		entity.setSectionName(dto.getSectionName());
 		entity.setId(dto.getId());
-		entity.setCompany(new CompanyEntity(1)); //TODO
+		entity.setCompany(new CompanyEntity(dto.getCompanyId()));
 		entity.setCreatedBy("jgeoo_created");
 		return entity;
 	}
@@ -60,7 +60,7 @@ public class DtoMapper {
 
 	public static ProductGroupEntity toEntity(prodGroupDto dto) {
 		ProductGroupEntity entity = new ProductGroupEntity();
-		entity.setCompany(new CompanyEntity(1)); //TODO
+		entity.setCompany(new CompanyEntity(dto.getCompanyId()));
 		entity.setId(dto.getId());
 		entity.setProductGroupName(dto.getProductGroupName());
 		entity.setProductionSection(toEntity(dto.getProductionSection()));

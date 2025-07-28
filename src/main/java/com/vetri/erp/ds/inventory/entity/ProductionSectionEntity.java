@@ -37,7 +37,7 @@ public class ProductionSectionEntity {
 	private String sectionName;
 	
 	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@JoinColumn(name = "company_id", updatable = false)
 	private CompanyEntity company;
 	
 	@Column(name = "created_By", updatable = false)
@@ -55,6 +55,9 @@ public class ProductionSectionEntity {
 	@Lob
 	@Column(name = "Custom_Data")
 	private String customData;
+	
+	@Column(name = "is_deleted")
+	private Boolean isDeleted;
 	
 	@PreUpdate
     public void preUpdate() {

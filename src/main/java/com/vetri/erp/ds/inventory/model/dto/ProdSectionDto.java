@@ -1,4 +1,4 @@
-package com.vetri.erp.ds.inventory.dto;
+package com.vetri.erp.ds.inventory.model.dto;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +18,7 @@ public class ProdSectionDto {
 	private int id;
 	private String sectionName;
 	
+	private String companyId;
 	private LocalDateTime createDate;
 	private LocalDateTime updatedDate;
 	private String createdBy;

@@ -10,4 +10,5 @@ public class ProductGroupDao extends CommonDaoImpl<ProductGroupEntity, Integer> 
 	public ProductGroupDao() {
 		super(ProductGroupEntity.class);
 	}
+
 }

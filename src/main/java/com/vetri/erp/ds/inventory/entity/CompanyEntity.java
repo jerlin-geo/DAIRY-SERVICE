@@ -13,23 +13,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "Company Master")
+@Table(name = "Company_Master")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class CompanyEntity {
 	
-	
-
-	public CompanyEntity(Integer id) {
+	public CompanyEntity(String id) {
 		super();
 		this.id = id;
 	}
 
 	@Id
 	@Column(name = "company_id")
-	private Integer id;
+	private String id;
 	
 	@Column(name = "company_name")
 	private String companyName;

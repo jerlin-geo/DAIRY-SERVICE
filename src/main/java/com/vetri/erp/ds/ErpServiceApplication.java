@@ -1,4 +1,4 @@
-package com.vetri;
+package com.vetri.erp.ds;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

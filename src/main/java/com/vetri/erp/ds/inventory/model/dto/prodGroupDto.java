@@ -1,4 +1,4 @@
-package com.vetri.erp.ds.inventory.dto;
+package com.vetri.erp.ds.inventory.model.dto;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +13,8 @@ public class prodGroupDto {
 
 
 	private Integer id;
+	
+	private String companyId;
 
 	private String productGroupName;
 	
