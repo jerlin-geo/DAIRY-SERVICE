@@ -29,16 +29,17 @@ public class CommonDaoImpl<T, ID> implements CommonDao<T, ID> {
 	}
 
 	@Override
-	public T getById(String orgId, ID id) throws InventoryException {
+	public T getById(Integer orgId, ID id) throws InventoryException {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = cb.createQuery(entityClass);
 		Root<T> root = query.from(entityClass);
 
 		Predicate idPredicate = cb.equal(root.get("id"), id);
 		Predicate orgPredicate = cb.equal(root.get("company").get("id"), orgId);
+		Predicate orgIsNullPredicate = cb.isNull(root.get("company").get("id"));
 //		Predicate notDeleted = cb.equal(root.get("isDeleted"), false);
-
-		query.select(root).where(cb.and(idPredicate, orgPredicate));
+		
+		query.select(root).where(idPredicate, cb.or(orgIsNullPredicate, orgPredicate));
 	    try {
 	    	return entityManager.createQuery(query).getSingleResult();
 	    } catch (NoResultException e) {
@@ -47,15 +48,16 @@ public class CommonDaoImpl<T, ID> implements CommonDao<T, ID> {
 	}
 
 	@Override
-	public List<T> getAll(String orgId) {
+	public List<T> getAll(Integer orgId) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = cb.createQuery(entityClass);
 		Root<T> root = query.from(entityClass);
 
 		Predicate orgPredicate = cb.equal(root.get("company").get("id"), orgId);
+		Predicate orgIsNullPredicate = cb.isNull(root.get("company").get("id"));
 //		Predicate notDeleted = cb.equal(root.get("isDeleted"), false);
 
-		query.select(root).where(cb.and(orgPredicate));
+		query.select(root).where(cb.or(orgIsNullPredicate, orgPredicate));
 		return entityManager.createQuery(query).getResultList();
 	}
 
@@ -74,26 +76,28 @@ public class CommonDaoImpl<T, ID> implements CommonDao<T, ID> {
 
 	@Override
 	@Transactional
-	public int delete(String orgId, ID id) {
+	public int delete(Integer orgId, ID id) {
 	    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 	    CriteriaDelete<T> delete = cb.createCriteriaDelete(entityClass);
 	    Root<T> root = delete.from(entityClass);
 	    Predicate orgPredicate = cb.equal(root.get("company").get("id"), orgId);
 	    Predicate idPredicate = cb.equal(root.get("id"), id);
-	    delete.where(orgPredicate, idPredicate); 
+	    Predicate orgIsNullPredicate = cb.isNull(root.get("company").get("id"));
+	    delete.where(cb.or(orgIsNullPredicate, orgPredicate), idPredicate); 
 	    return entityManager.createQuery(delete).executeUpdate();
 	}
 	
 	@Override
 	@Transactional
-	public int softDelete(String orgId, ID id) {
+	public int softDelete(Integer orgId, ID id) {
 	    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 	    CriteriaUpdate<T> update = cb.createCriteriaUpdate(entityClass);
 	    Root<T> root = update.from(entityClass);
 	    Predicate orgPredicate = cb.equal(root.get("company").get("id"), orgId);
 	    Predicate idPredicate = cb.equal(root.get("id"), id);
+	    Predicate orgIsNullPredicate = cb.isNull(root.get("company").get("id"));
 	    update.set(root.get("isDeleted"), true);
-	    update.where(orgPredicate, idPredicate); 
+	    update.where(cb.or(orgIsNullPredicate, orgPredicate), idPredicate); 
 	    return entityManager.createQuery(update).executeUpdate();
 	}
 

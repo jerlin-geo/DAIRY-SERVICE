@@ -16,24 +16,31 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "production_Section")
+@Table(name = "uom_Master")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class ProductionSectionEntity {
-
-	public ProductionSectionEntity(Integer id) {
-		super();
-		this.id = id;
-	}
-
-	@Id
-	@Column(name = "section_ID")
-	private Integer id;
+public class UomEntity {
 	
-	@Column(name = "section_Name")
-	private String sectionName;
+	@Id
+	@Column(name = "uom_ID")
+	private Integer id;
+
+	@Column(name = "uom_Name")
+	private String uomName;
+	
+	@Column(name = "uom_Short_Name")
+	private Integer uomShortName;
+	
+	@Column(name = "tally_UOM")
+	private String tallyUom;
+	
+	@Column(name = "alternate_UOM_ID")
+	private String alternateUomId;
+	
+	@Column(name = "alternate_UOM_Qty")
+	private Boolean alternateUomQty;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_id", updatable = false)
@@ -60,4 +67,5 @@ public class ProductionSectionEntity {
     public void prePersist() {
         this.createdDate = LocalDateTime.now();
     }
+
 }

@@ -17,15 +17,15 @@ public class ProdSectionService {
 	@Autowired
 	ProductionSectionDao productionSectionDao;
 	
-	public List<ProdSectionDto> getAll(String orgId) {
+	public List<ProdSectionDto> getAll(Integer orgId) {
 		return DtoMapper.toProdSecDtoList(productionSectionDao.getAll(orgId));
 	}
 
-	public ProdSectionDto getbyId(String orgId, Integer id) throws InventoryException {
+	public ProdSectionDto getbyId(Integer orgId, Integer id) throws InventoryException {
 		return DtoMapper.toDto(productionSectionDao.getById(orgId, id));
 	}
 
-	public ProdSectionDto update(String orgId, ProdSectionDto dto) throws InventoryException {
+	public ProdSectionDto update(Integer orgId, ProdSectionDto dto) throws InventoryException {
 		ProductionSectionEntity entity = productionSectionDao.getById(orgId, dto.getId());
 		ProductionSectionEntity updatedEntity =  DtoMapper.updateEntity(dto, entity);
 		return DtoMapper.toDto(productionSectionDao.update(updatedEntity));
@@ -35,7 +35,7 @@ public class ProdSectionService {
 		return  DtoMapper.toDto(productionSectionDao.save(DtoMapper.toEntity(dto)));
 	}
 
-	public void delete(String orgId, Integer id) {
+	public void delete(Integer orgId, Integer id) {
 		productionSectionDao.delete(orgId, id);
 	}
 

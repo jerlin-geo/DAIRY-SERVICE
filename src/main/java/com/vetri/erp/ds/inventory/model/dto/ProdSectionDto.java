@@ -1,6 +1,6 @@
 package com.vetri.erp.ds.inventory.model.dto;
 
-import java.time.LocalDateTime;
+import com.vetri.erp.ds.inventory.model.CommonDetail;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-public class ProdSectionDto {
+public class ProdSectionDto extends CommonDetail {
 	
 	public ProdSectionDto(int id, String sectionName) {
 		super();
@@ -17,11 +17,5 @@ public class ProdSectionDto {
 	}
 	private int id;
 	private String sectionName;
-	
-	private String companyId;
-	private LocalDateTime createDate;
-	private LocalDateTime updatedDate;
-	private String createdBy;
-	private String updatedBy;
 	
 }

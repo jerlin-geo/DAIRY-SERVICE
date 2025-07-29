@@ -13,29 +13,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vetri.erp.ds.inventory.model.dto.ProdSectionDto;
+import com.vetri.erp.ds.inventory.model.dto.CrateMasterDto;
 import com.vetri.erp.ds.inventory.model.response.InventoryResponse;
-import com.vetri.erp.ds.inventory.service.ProdSectionService;
+import com.vetri.erp.ds.inventory.service.CrateMasterService;
 import com.vetri.erp.ds.inventory.util.Constants;
 
 @RestController
-@RequestMapping("api/inventory/productSection/{orgId}/")
-
-public class ProductSectionController {
+@RequestMapping("api/inventory/crate/{orgId}/")
+public class CrateMasterController {
 
 	@Autowired
-	ProdSectionService prodSectionService;
+	CrateMasterService crateService;
 
 	@GetMapping
-	ResponseEntity<InventoryResponse> getAllProductionSection(@PathVariable Integer orgId) {
-		List<ProdSectionDto> response = prodSectionService.getAll(orgId);
+	ResponseEntity<InventoryResponse> getAllCrate(@PathVariable Integer orgId) {
+		List<CrateMasterDto> response = crateService.getAll(orgId);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 	}
 
 	@GetMapping("{id}")
-	ResponseEntity<InventoryResponse> getByIdProductionSection(@PathVariable Integer orgId, @PathVariable Integer id) {
+	ResponseEntity<InventoryResponse> getByIdCrate(@PathVariable Integer orgId, @PathVariable Integer id) {
 		try {
-			ProdSectionDto response = prodSectionService.getbyId(orgId, id);
+			CrateMasterDto response = crateService.getbyId(orgId, id);
 			return  ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 		} catch (Exception e) {
 			return  ResponseEntity.accepted().body(new InventoryResponse(Constants.WARN, e.getMessage()));
@@ -43,9 +42,9 @@ public class ProductSectionController {
 	}
 
 	@PutMapping
-	ResponseEntity<InventoryResponse> updateProductionSection(@PathVariable Integer orgId, @RequestBody ProdSectionDto dto) {
+	ResponseEntity<InventoryResponse> updateCrate(@PathVariable Integer orgId, @RequestBody CrateMasterDto dto) {
 		try {
-			ProdSectionDto response = prodSectionService.update(orgId, dto);
+			CrateMasterDto response = crateService.update(orgId, dto);
 			return  ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 		} catch (Exception e) {
 			return  ResponseEntity.accepted().body(new InventoryResponse(Constants.WARN, e.getMessage()));
@@ -53,15 +52,15 @@ public class ProductSectionController {
 	}
 
 	@PostMapping
-	ResponseEntity<InventoryResponse> saveProductionSection(@PathVariable Integer orgId, @RequestBody ProdSectionDto dto) {
+	ResponseEntity<InventoryResponse> saveCrate(@PathVariable Integer orgId, @RequestBody CrateMasterDto dto) {
 		dto.setCompanyId(orgId);
-		ProdSectionDto response = prodSectionService.save(dto);
+		CrateMasterDto response = crateService.save(dto);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 	}
 
 	@DeleteMapping("{id}")
-	ResponseEntity<InventoryResponse> deleteProductionSection(@PathVariable Integer orgId, @PathVariable Integer id) {
-		prodSectionService.delete(orgId, id);
+	ResponseEntity<InventoryResponse> deleteCrate(@PathVariable Integer orgId, @PathVariable Integer id) {
+		crateService.delete(orgId, id);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS));
 	}
 }

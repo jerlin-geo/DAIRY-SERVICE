@@ -13,40 +13,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vetri.erp.ds.inventory.exception.InventoryException;
-import com.vetri.erp.ds.inventory.model.dto.prodGroupDto;
+import com.vetri.erp.ds.inventory.model.dto.UomDto;
 import com.vetri.erp.ds.inventory.model.response.InventoryResponse;
-import com.vetri.erp.ds.inventory.service.ProdGroupService;
+import com.vetri.erp.ds.inventory.service.UomService;
 import com.vetri.erp.ds.inventory.util.Constants;
 
 @RestController
-@RequestMapping("api/inventory/productGroup/{orgId}/")
-
-public class ProductGroupController {
+@RequestMapping("api/inventory/uom/{orgId}/")
+public class UomController {
 
 	@Autowired
-	ProdGroupService prodGroupService;
+	UomService uomService;
 
 	@GetMapping
-	ResponseEntity<InventoryResponse> getAllProductGroup(@PathVariable String orgId) {
-		List<prodGroupDto> response = prodGroupService.getAll(orgId);
+	ResponseEntity<InventoryResponse> getAllUom(@PathVariable Integer orgId) {
+		List<UomDto> response = uomService.getAll(orgId);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 	}
 
 	@GetMapping("{id}")
-	ResponseEntity<InventoryResponse> getByIdProductGroup(@PathVariable String orgId, @PathVariable Integer id) {
+	ResponseEntity<InventoryResponse> getByIdUom(@PathVariable Integer orgId, @PathVariable Integer id) {
 		try {
-			prodGroupDto response = prodGroupService.getbyId(orgId, id);
+			UomDto response = uomService.getbyId(orgId, id);
 			return  ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
-		} catch (InventoryException e) {
+		} catch (Exception e) {
 			return  ResponseEntity.accepted().body(new InventoryResponse(Constants.WARN, e.getMessage()));
 		}
 	}
 
 	@PutMapping
-	ResponseEntity<InventoryResponse> updateProductGroup(@PathVariable String orgId, @RequestBody prodGroupDto dto) {
+	ResponseEntity<InventoryResponse> updateUom(@PathVariable Integer orgId, @RequestBody UomDto dto) {
 		try {
-			prodGroupDto response = prodGroupService.update(orgId, dto);
+			UomDto response = uomService.update(orgId, dto);
 			return  ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 		} catch (Exception e) {
 			return  ResponseEntity.accepted().body(new InventoryResponse(Constants.WARN, e.getMessage()));
@@ -54,15 +52,15 @@ public class ProductGroupController {
 	}
 
 	@PostMapping
-	ResponseEntity<InventoryResponse> saveProductGroup(@PathVariable String orgId, @RequestBody prodGroupDto dto) {
+	ResponseEntity<InventoryResponse> saveUom(@PathVariable Integer orgId, @RequestBody UomDto dto) {
 		dto.setCompanyId(orgId);
-		prodGroupDto response = prodGroupService.save(dto);
+		UomDto response = uomService.save(dto);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 	}
 
 	@DeleteMapping("{id}")
-	ResponseEntity<InventoryResponse> deleteProductGroup(@PathVariable String orgId, @PathVariable Integer id) {
-		prodGroupService.delete(orgId, id);
+	ResponseEntity<InventoryResponse> deleteUom(@PathVariable Integer orgId, @PathVariable Integer id) {
+		uomService.delete(orgId, id);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS));
 	}
 }

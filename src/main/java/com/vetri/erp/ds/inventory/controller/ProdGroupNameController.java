@@ -13,39 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vetri.erp.ds.inventory.model.dto.ProdSectionDto;
+import com.vetri.erp.ds.inventory.exception.InventoryException;
+import com.vetri.erp.ds.inventory.model.dto.prodGroupNameDto;
 import com.vetri.erp.ds.inventory.model.response.InventoryResponse;
-import com.vetri.erp.ds.inventory.service.ProdSectionService;
+import com.vetri.erp.ds.inventory.service.ProdGroupService;
 import com.vetri.erp.ds.inventory.util.Constants;
 
 @RestController
-@RequestMapping("api/inventory/productSection/{orgId}/")
+@RequestMapping("api/inventory/prodGroupName/{orgId}/")
 
-public class ProductSectionController {
+public class ProdGroupNameController {
 
 	@Autowired
-	ProdSectionService prodSectionService;
+	ProdGroupService prodGroupService;
 
 	@GetMapping
-	ResponseEntity<InventoryResponse> getAllProductionSection(@PathVariable Integer orgId) {
-		List<ProdSectionDto> response = prodSectionService.getAll(orgId);
+	ResponseEntity<InventoryResponse> getAllProductGroup(@PathVariable Integer orgId) {
+		List<prodGroupNameDto> response = prodGroupService.getAll(orgId);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 	}
 
 	@GetMapping("{id}")
-	ResponseEntity<InventoryResponse> getByIdProductionSection(@PathVariable Integer orgId, @PathVariable Integer id) {
+	ResponseEntity<InventoryResponse> getByIdProductGroup(@PathVariable Integer orgId, @PathVariable Integer id) {
 		try {
-			ProdSectionDto response = prodSectionService.getbyId(orgId, id);
+			prodGroupNameDto response = prodGroupService.getbyId(orgId, id);
 			return  ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
-		} catch (Exception e) {
+		} catch (InventoryException e) {
 			return  ResponseEntity.accepted().body(new InventoryResponse(Constants.WARN, e.getMessage()));
 		}
 	}
 
 	@PutMapping
-	ResponseEntity<InventoryResponse> updateProductionSection(@PathVariable Integer orgId, @RequestBody ProdSectionDto dto) {
+	ResponseEntity<InventoryResponse> updateProductGroup(@PathVariable Integer orgId, @RequestBody prodGroupNameDto dto) {
 		try {
-			ProdSectionDto response = prodSectionService.update(orgId, dto);
+			prodGroupNameDto response = prodGroupService.update(orgId, dto);
 			return  ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 		} catch (Exception e) {
 			return  ResponseEntity.accepted().body(new InventoryResponse(Constants.WARN, e.getMessage()));
@@ -53,15 +54,15 @@ public class ProductSectionController {
 	}
 
 	@PostMapping
-	ResponseEntity<InventoryResponse> saveProductionSection(@PathVariable Integer orgId, @RequestBody ProdSectionDto dto) {
+	ResponseEntity<InventoryResponse> saveProductGroup(@PathVariable Integer orgId, @RequestBody prodGroupNameDto dto) {
 		dto.setCompanyId(orgId);
-		ProdSectionDto response = prodSectionService.save(dto);
+		prodGroupNameDto response = prodGroupService.save(dto);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS, response));
 	}
 
 	@DeleteMapping("{id}")
-	ResponseEntity<InventoryResponse> deleteProductionSection(@PathVariable Integer orgId, @PathVariable Integer id) {
-		prodSectionService.delete(orgId, id);
+	ResponseEntity<InventoryResponse> deleteProductGroup(@PathVariable Integer orgId, @PathVariable Integer id) {
+		prodGroupService.delete(orgId, id);
 		return ResponseEntity.ok(new InventoryResponse(Constants.SUCCESS));
 	}
 }

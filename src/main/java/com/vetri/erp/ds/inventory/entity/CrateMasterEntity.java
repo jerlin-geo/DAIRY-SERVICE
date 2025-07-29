@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -17,33 +16,36 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "product_Group")
+@Table(name = "crate_Master")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class ProductGroupEntity {
+public class CrateMasterEntity {
+	
 	
 	@Id
-	@Column(name = "product_Group_ID")
+	@Column(name = "crate_ID")
 	private Integer id;
 
-	@Column(name = "product_Group_Name")
-	private String productGroupName;
+	@Column(name = "crate_Type")
+	private String crateType;
 	
-	@Column(name = "sort_Order")
-	private Integer sortOrder;
+	@Column(name = "isReturnable")
+	private Boolean isReturnable;
 	
-	@ManyToOne
-	@JoinColumn(name = "production_Section")
-	private ProductionSectionEntity productionSection;
+	@Column(name = "qty_UOM")
+	private String qtyUom;
+	
+	@Column(name = "op_Bal")
+	private String openingBal;
+	
+	@Column(name = "active_Flag")
+	private Boolean activeFlag;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_id", updatable = false)
 	private CompanyEntity company;
-	
-	@Column(name = "use_For_MB")
-	private Boolean useForMb;
 	
 	@Column(name = "created_By", updatable = false)
 	private String createdBy;
@@ -56,13 +58,6 @@ public class ProductGroupEntity {
 	
 	@Column(name = "modified_Date")
 	private LocalDateTime modifiedDate;
-	
-	@Lob
-	@Column(name = "Custom_Data")
-	private String customData;
-	
-	@Column(name = "is_deleted")
-	private Boolean isDeleted;
 	
 	@PreUpdate
     public void preUpdate() {
