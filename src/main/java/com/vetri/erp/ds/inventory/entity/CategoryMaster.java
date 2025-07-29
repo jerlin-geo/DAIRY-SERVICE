@@ -16,31 +16,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "uom_Master")
+@Table(name = "category_Master")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class UomEntity {
-	
+public class CategoryMaster {
+
 	@Id
-	@Column(name = "uom_ID")
+	@Column(name = "category_ID")
 	private Integer id;
 
-	@Column(name = "uom_Name")
-	private String uomName;
-	
-	@Column(name = "uom_Short_Name")
-	private Integer uomShortName;
-	
-	@Column(name = "tally_UOM")
-	private String tallyUom;
-	
-	@Column(name = "alternate_UOM_ID")
-	private String alternateUomId;
-	
-	@Column(name = "alternate_UOM_Qty")
-	private Boolean alternateUomQty;
+	@Column(name = "category_Name")
+	private String categoryName;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_id", updatable = false)
@@ -67,5 +55,4 @@ public class UomEntity {
     public void prePersist() {
         this.createdDate = LocalDateTime.now();
     }
-
 }

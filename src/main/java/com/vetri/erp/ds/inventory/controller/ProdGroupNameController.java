@@ -20,8 +20,7 @@ import com.vetri.erp.ds.inventory.service.ProdGroupService;
 import com.vetri.erp.ds.inventory.util.Constants;
 
 @RestController
-@RequestMapping("api/inventory/prodGroupName/{orgId}/")
-
+@RequestMapping("api/inventory/prod_group_name/{orgId}/")
 public class ProdGroupNameController {
 
 	@Autowired
